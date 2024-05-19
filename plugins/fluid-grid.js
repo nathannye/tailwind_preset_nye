@@ -102,9 +102,9 @@ const generateGridSvg = (device, gridSettings) => {
     let colWidth = c * index
     let cwg = ((colWidth / s) * 100) + (gutterPercentage * index - 1)
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}%)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% - ${width * 2}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}%)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}% - ${width * 2}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
   })
 
   // right margin
