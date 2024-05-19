@@ -91,36 +91,32 @@ Speccing a grid for screen sizes. We recoMmend adding these exactly as-is from F
 |`columns`| Number of columns in pixels | `null`|`number`
 |`gutter`| Width of gutter in pixels | `null`|`number`
 |`margin`| Width of margin in pixels | `null`|`number`
-|`maxScalingWidth`| The max screen width that linear scaling should be applied to for this breakpoint. See example below. | `null`|`number`
-
-<strong>A note on `maxScalingWidth`</strong>
-This property can be confusing, heres how we use it:
 
 <br/>
+
+### Max Scaling Width
+`maxScalingWidth: number` will disable scaling at a given screen width. Used best to not let text become HUGE on widescreen monitors
 
 ### Example Config
 
 ```js
+maxScalingWidth: 1920
 devices: {
   sm: {
     columns: 8,
     size: 390,
     gutter: 10,
     margin: 20
-    // maxScalingWidth: 540
   },
   md: {
     columns: 8,
     size: 768,
-    scaledSize: 768,
     gutter: 16,
     margin: 16
   },
   lg: {
     columns: 18,
     size: 1024,
-    // scaledSize: 1280,
-    // maxScalingWidth: 1920,
     gutter: 10,
     margin: 25
   }

@@ -165,7 +165,7 @@ const generateVariables = (devices, addBase, addUtilities, gridSettings) => {
 
     if (maxScalingWidth) {
       gridVars[`@media (min-width: ${maxScalingWidth}px)`] = {
-        // '--max-scaling': maxScalingWidth + 'px',
+      // '--max-scaling': maxScalingWidth + 'px',
         '--screen-width': maxScalingWidth
       }
     }
