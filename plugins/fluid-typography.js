@@ -10,8 +10,6 @@ const createMax = (size, min) => {
 
 const font = ({ size, lineHeight: line, letterSpacing: letter }, settings) => {
 
-  console.log(settings)
-
   const { minFontSize, minScalingFontSize } = settings
 
   const dontScale = minScalingFontSize && (size > minScalingFontSize)
@@ -28,7 +26,6 @@ const font = ({ size, lineHeight: line, letterSpacing: letter }, settings) => {
 const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
   const fontSizes = theme('fontSize')
   const settings = { ..._DEFAULT_TYPOGRAPHY, ...theme('fluidTypography') }
-
 
   const values = {}
   // get only keys from the fontSizes object

@@ -1,5 +1,5 @@
 const _DEFAULT_TYPOGRAPHY = {
-  minFontSize: 11.8,
+  minFontSize: 12,
   minScalingFontSize: null,
 }
 
