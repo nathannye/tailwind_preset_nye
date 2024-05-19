@@ -184,6 +184,16 @@ These suffixes come in handy when setting a width and you don't want to add `gut
 
 <br/>
 
+### Grid Utilities
+The below css class is baked into our config, using it will lock an element when the max scaling width is reached.
+```css
+.grid-contain {
+  max-width: 'var(--max-scaling)',
+  margin-left: 'auto',
+  margin-right: 'auto'
+}
+```
+
 ### Grid Overlay {#grid-overlay}
 > ⚙️ These settings should be placed in `theme.gridOverlay`
 

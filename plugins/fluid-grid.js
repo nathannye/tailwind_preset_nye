@@ -102,13 +102,13 @@ const generateGridSvg = (device, gridSettings) => {
     let colWidth = c * index
     let cwg = ((colWidth / s) * 100) + (gutterPercentage * index - 1)
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + 2.5px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% - ${width}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}% + 2.5px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}% - ${width}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
   })
 
   // right margin
-  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='red' width='${width}' opacity='${opacity} ' />`
+  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity} ' />`
 
   return `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>${lines}</svg>");`
 
