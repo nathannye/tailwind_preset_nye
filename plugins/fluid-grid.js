@@ -102,13 +102,13 @@ const generateGridSvg = (device, gridSettings) => {
     let colWidth = c * index
     let cwg = ((colWidth / s) * 100) + (gutterPercentage * index - 1)
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% - ${width * 2}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + 2.5px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
 
-    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}% - ${width * 2}px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
+    lines += `<rect x='calc(${marginPercentage}% + ${cwg}% + ${gutterPercentage}% + 2.5px)' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
   })
 
   // right margin
-  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='${color}' width='${width} ' opacity='${opacity} ' />`
+  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='red' width='${width}' opacity='${opacity} ' />`
 
   return `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>${lines}</svg>");`
 
@@ -194,7 +194,8 @@ const generateVariables = (devices, addBase, gridSettings) => {
               right: 0,
               bottom: 0,
               maxWidth: maxScalingWidth ? maxScalingWidth + 'px' : '100%',
-              width: 'calc(var(--screen-width) + 2 * var(--margin))',
+              // width: 'calc(var(--screen-width) + 2 * var(--margin))',
+              width: '100%',
               margin: '0 auto',
               height: '100lvh',
               content: '""',
@@ -209,26 +210,26 @@ const generateVariables = (devices, addBase, gridSettings) => {
     }
 
     const fontScaling = {
-      [mediaQuery]: {
-        '--grid-visibility': 'none',
-        [mediaQuery]: {
-          fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
-        }
-      }
+      // [mediaQuery]: {
+      '--grid-visibility': 'none',
+      // [mediaQuery]: {
+      fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
+      // }
+      // }
     }
 
-    if (maxScalingWidth) {
-      gridVars[`@media (max-width: ${maxScalingWidth}px)`] = {
-        '--max-scaling': maxScalingWidth + 'px',
-        '--screen-width': maxScalingWidth
-      }
-    }
+    // if (maxScalingWidth) {
+    //   gridVars[`@media (max-width: ${maxScalingWidth}px)`] = {
+    //     '--max-scaling': maxScalingWidth + 'px',
+    //     '--screen-width': maxScalingWidth
+    //   }
+    // }
 
-    if (maxScalingWidth) {
-      fontScaling[`@media (min-width: ${maxScalingWidth}px)`] = {
-        fontSize: '1rem !important'
-      }
-    }
+    // if (maxScalingWidth) {
+    //   fontScaling[`@media (min-width: ${maxScalingWidth}px)`] = {
+    //     fontSize: '1rem !important'
+    //   }
+    // }
 
     addBase({
       ':root': {
