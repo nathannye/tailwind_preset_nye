@@ -114,32 +114,25 @@ const generateGridSvg = (device, gridSettings) => {
 
 }
 
-const generateVariables = (devices, addBase, gridSettings) => {
+const generateVariables = (devices, addBase, addUtilities, gridSettings) => {
+
+  const { maxScalingWidth } = gridSettings
+
   const baseVariables = {
     '--scrollbar': '0px',
     '--all-gutters': 'calc(var(--gutter) * (var(--column-count) - 1));',
     '--column': `calc((var(--screen-width) - (var(--margin) * 2) - var(--all-gutters)) / var(--column-count));`,
-
   }
 
   Object.entries(devices).forEach(([name, device], index) => {
     const isFirstDevice = index === 0
     const isLastDevice = index === Object.keys(devices).length - 1
-    const { margin = 10, gutter = 10, columns = 10, size, scaledSize, maxScalingWidth } = device
+    const { margin = 10, gutter = 10, columns = 10, size, scaledSize } = device
 
     let mediaQuery
     let gridVars = {}
-    let overlay = {}
-
-    // if (isLastDevice) {
-    //   mediaQuery = `@media (min-width: ${size}px)`
-    // } else {
-    //   mediaQuery = `@media (${isFirstDevice ? 'max' : 'min'}-width: ${size}px)${(maxScalingWidth) ? ` and (max-width: ${maxScalingWidth}px)` : ''}`
-    // }
 
     if (isFirstDevice) {
-
-      // mediaQuery = `@media (max-width: ${size}px)`
       gridVars = {
         '--margin': toRem(margin),
         '--gutter': toRem(gutter),
@@ -148,9 +141,51 @@ const generateVariables = (devices, addBase, gridSettings) => {
         '--screen-width': 'calc(100vw - var(--scrollbar));',
         ...baseVariables
       }
-      overlay = {
-        'body': {
-          ['&::before']: {
+    } else {
+      mediaQuery = `@media (min-width: ${size}px)`
+      gridVars = {
+        [mediaQuery]: {
+          '--margin': toRem(margin),
+          '--gutter': toRem(gutter),
+          '--column-count': `${columns}`,
+          '--comp-size': `${scaledSize || size}`,
+          ...baseVariables
+        }
+      }
+    }
+
+    const fontScaling = {
+      // [mediaQuery]: {
+      '--grid-visibility': 'none',
+      // [mediaQuery]: {
+      fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
+      // }
+      // }
+    }
+
+    if (maxScalingWidth) {
+      gridVars[`@media (min-width: ${maxScalingWidth}px)`] = {
+        // '--max-scaling': maxScalingWidth + 'px',
+        '--screen-width': maxScalingWidth
+      }
+    }
+
+    if (maxScalingWidth) {
+      fontScaling[`@media (min-width: ${maxScalingWidth}px)`] = {
+        fontSize: '1rem'
+      }
+    }
+
+    addBase({
+      ':root': {
+        ...gridVars
+      },
+      'html': {
+        ...fontScaling
+      },
+      'body': {
+        ['&::before']: {
+          [`@media ${isFirstDevice ? '' : `(min-width: ${size}px)`}`]: {
             zIndex: 999999,
             position: 'fixed',
             top: 0,
@@ -170,81 +205,17 @@ const generateVariables = (devices, addBase, gridSettings) => {
           }
         }
       }
-    } else {
-      mediaQuery = `@media (min-width: ${size}px)`
-      gridVars = {
-        [mediaQuery]: {
-          '--margin': toRem(margin),
-          '--gutter': toRem(gutter),
-          '--column-count': `${columns}`,
-          '--comp-size': `${scaledSize || size}`,
-          ...baseVariables
-        }
-      }
-
-      overlay = {
-        'body': {
-          ['&::before']: {
-            [mediaQuery]: {
-              zIndex: 999999,
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              display: 'var(--grid-visibility)',
-              right: 0,
-              bottom: 0,
-              maxWidth: maxScalingWidth ? maxScalingWidth + 'px' : '100%',
-              // width: 'calc(var(--screen-width) + 2 * var(--margin))',
-              width: '100%',
-              margin: '0 auto',
-              height: '100lvh',
-              content: '""',
-              pointerEvents: 'none',
-              backgroundImage: generateGridSvg(device, gridSettings),
-              backgroundSize: '100% 100%',
-              backgroundPosition: 'center',
-            }
-          }
-        }
-      }
-    }
-
-    const fontScaling = {
-      // [mediaQuery]: {
-      '--grid-visibility': 'none',
-      // [mediaQuery]: {
-      fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
-      // }
-      // }
-    }
-
-    // if (maxScalingWidth) {
-    //   gridVars[`@media (max-width: ${maxScalingWidth}px)`] = {
-    //     '--max-scaling': maxScalingWidth + 'px',
-    //     '--screen-width': maxScalingWidth
-    //   }
-    // }
-
-    // if (maxScalingWidth) {
-    //   fontScaling[`@media (min-width: ${maxScalingWidth}px)`] = {
-    //     fontSize: '1rem !important'
-    //   }
-    // }
-
-    addBase({
-      ':root': {
-        ...gridVars
-      },
-      'html': {
-        ...fontScaling
-      },
-      ...overlay,
-      '.grid-contain': {
-        maxWidth: 'var(--max-scaling)',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }
     })
+
+    if (maxScalingWidth) {
+      addUtilities({
+        '.grid-contain': {
+          'max-width': maxScalingWidth + 'px',
+          'margin-left': 'auto',
+          'margin-right': 'auto'
+        }
+      })
+    }
   })
 }
 
@@ -320,17 +291,20 @@ const generateGridUtilities = (matchUtilities) => {
 }
 
 
-const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities }) {
+const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUtilities }) {
   const devices = { ..._DEFAULT_DEVICES, ...theme('devices') }
-  const gridSettings = { ..._DEFAULT_OVERLAY, ...theme('gridOverlay') }
+  const maxScalingWidth = theme('maxScalingWidth') || _DEFAULT_MAX_SCALING_WIDTH
+
+  console.log(maxScalingWidth, theme('maxScalingWidth'))
+
+  const gridSettings = { ..._DEFAULT_OVERLAY, ...theme('gridOverlay'), maxScalingWidth }
 
   if (!devices) {
     console.warn('No devices found, using defaults')
   }
 
-  generateVariables(devices, addBase, gridSettings)
+  generateVariables(devices, addBase, addUtilities, gridSettings)
   generateGridUtilities(matchUtilities)
-  // generateSvgGrid(devices, gridSettings, addBase)
 
 })
 

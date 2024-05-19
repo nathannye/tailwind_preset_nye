@@ -23,10 +23,12 @@ const _DEFAULT_DEVICES = {
   },
 }
 
+const _DEFAULT_MAX_SCALING_WIDTH = 1920
+
 const _DEFAULT_OVERLAY = {
   color: 'blue',
   opacity: 0.5,
   width: '4px',
 }
 
-module.exports = { _DEFAULT_DEVICES, _DEFAULT_OVERLAY }
+module.exports = { _DEFAULT_DEVICES, _DEFAULT_OVERLAY, _DEFAULT_MAX_SCALING_WIDTH }
