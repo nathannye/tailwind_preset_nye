@@ -165,7 +165,7 @@ const generateVariables = (devices, addBase, addUtilities, gridSettings) => {
 
     if (maxScalingWidth) {
       gridVars[`@media (min-width: ${maxScalingWidth}px)`] = {
-      // '--max-scaling': maxScalingWidth + 'px',
+        // '--max-scaling': maxScalingWidth + 'px',
         '--screen-width': maxScalingWidth
       }
     }
@@ -294,8 +294,6 @@ const generateGridUtilities = (matchUtilities) => {
 const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUtilities }) {
   const devices = { ..._DEFAULT_DEVICES, ...theme('devices') }
   const maxScalingWidth = theme('maxScalingWidth') || _DEFAULT_MAX_SCALING_WIDTH
-
-  console.log(maxScalingWidth, theme('maxScalingWidth'))
 
   const gridSettings = { ..._DEFAULT_OVERLAY, ...theme('gridOverlay'), maxScalingWidth }
 
