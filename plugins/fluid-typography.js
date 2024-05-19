@@ -4,13 +4,20 @@ const { toRem } = require('../utils')
 const plugin = require('tailwindcss/plugin')
 
 
-const createMax = (size) => {
-  return `max(12px,${toRem(size)})`
+const createMax = (size, min) => {
+  return `max(${min}px,${toRem(size)})`
 }
 
-const font = ({ size, lineHeight: line, letterSpacing: letter }) => {
+const font = ({ size, lineHeight: line, letterSpacing: letter }, settings) => {
+
+  console.log(settings)
+
+  const { minFontSize, minScalingFontSize } = settings
+
+  const dontScale = minScalingFontSize && (size > minScalingFontSize)
+
   let font = {
-    fontSize: createMax(size),
+    fontSize: dontScale ? `${size}px` : createMax(size, minFontSize),
     lineHeight: line ? line.toString() : '.9',
     letterSpacing: letter ? `${letter}em` : '-.03em',
   }
@@ -20,7 +27,7 @@ const font = ({ size, lineHeight: line, letterSpacing: letter }) => {
 
 const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
   const fontSizes = theme('fontSize')
-  const settings = { ...theme('fluidTypography'), ..._DEFAULT_TYPOGRAPHY }
+  const settings = { ..._DEFAULT_TYPOGRAPHY, ...theme('fluidTypography') }
 
 
   const values = {}
@@ -33,7 +40,7 @@ const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
   matchUtilities(
     {
       text: (value) => ({
-        ...font(fontSizes[value])
+        ...font(fontSizes[value], settings)
       }),
     },
     { values }

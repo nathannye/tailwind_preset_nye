@@ -108,7 +108,7 @@ const generateGridSvg = (device, gridSettings) => {
   })
 
   // right margin
-  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='red' width='${width}' opacity='${opacity} ' />`
+  lines += `<rect x='calc(100% - ${marginPercentage}%)' y='0' height='100%' fill='${color}' width='${width} ' opacity='${opacity} ' />`
 
   return `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>${lines}</svg>");`
 
@@ -209,12 +209,12 @@ const generateVariables = (devices, addBase, gridSettings) => {
     }
 
     const fontScaling = {
-      // [mediaQuery]: {
-      '--grid-visibility': 'none',
-      // [mediaQuery]: {
-      fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
-      // }
-      // }
+      [mediaQuery]: {
+        '--grid-visibility': 'none',
+        [mediaQuery]: {
+          fontSize: 'calc(var(--screen-width) / (var(--comp-size)) * 10);'
+        }
+      }
     }
 
     if (maxScalingWidth) {
