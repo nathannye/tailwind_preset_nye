@@ -9,6 +9,14 @@ const themePlugin = plugin(({ theme, addBase }) => {
 
   const { element, dataAttribute, defaultTheme } = { ...DEFAULT_THEME_ATTRS, ...theme('themeConfig') }
 
+  const colors = theme('colors');
+
+
+  // if colors are normal strings, dont turn themes on
+  if (Object.values(colors).some(color => typeof color !== 'object')) return;
+
+
+
   let index = 0
 
 
@@ -40,7 +48,7 @@ const themePlugin = plugin(({ theme, addBase }) => {
     }
 
   }
-  const colors = theme('colors');
+
 
   Object.entries(colors).forEach(([colorName, colorValue], index) => {
     // if (typeof colorValue === 'string') return;
