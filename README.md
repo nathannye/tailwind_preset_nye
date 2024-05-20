@@ -1,7 +1,9 @@
-# Nye's Tailwind Config - Scalable Grids & Typography
-A preset that scales all typography and provides grid classes that match Figma
+# Nye's Tailwind Config
+A preset that provides linear text and element scaling, grid classes and overlays to help you match Figma comps, and a super simple theming engine.
 
-> 🚨 This library is under active development and may not be production ready. It is strongly opiniated to how we work
+> 🚨 This library is strongly opiniated to how we work, if you don't like it, make ya own
+
+<br/>
 
 <strong>Table of Contents</strong>
 - [Fluid Typography](#typography)
@@ -9,10 +11,11 @@ A preset that scales all typography and provides grid classes that match Figma
 - [Grid Overlay](#grid-overlay)
 - [Theming](#theming)
 - [Extras](#extras)
+
 <br/>
 
 <strong>Upcoming Features</strong>
-- [ ] Theming without `dark:` variants and configurable data attributes.
+- [ ] Expand theming options to allow classes and ID's not just data attributes.
 - [ ] Expand grid overlay visual settings to include filled columns, not just outlines
 
 <br/>
