@@ -7,6 +7,7 @@ A preset that scales all typography and provides grid classes that match Figma
 - [Fluid Typography](#typography)
 - [Grid Devices](#grid-devices)
 - [Grid Overlay](#grid-overlay)
+- [Theming](#theming)
 - [Extras](#extras)
 <br/>
 
@@ -217,6 +218,57 @@ gridOverlay: {
 
 <br/>
 <br/>
+
+## Theming {#theming}
+We prefer theming to be done with variables, specifying `dark:` or `light:` per element is ineffcient for us so we built our own:
+</br>
+
+### Usage
+Supply colors like you normally would to tailwind but break them up into objects for each theme you want to create. As many themes as your heart desires, have at it.
+> 🚨 Theming is only activated when Tailwind detects objects in the `colors` config, if you use normal string syntax, things will be business as usual, no themes.
+
+```js
+colors: {
+  light: {
+    primary: '#fff', 
+    inverted: '#000', 
+    accent: '#f0f'
+  }, 
+  dark: {
+    primary: '#000', 
+    inverted: '#fff', 
+    accent: '#0f0'
+  }, 
+  otherThemeName: {
+    primary: '#0f8', 
+    inverted: '#0ff', 
+    accent: '#f9f'
+  }
+}
+
+```
+
+</br>
+
+### Settings
+> These settings should be placed in `theme.themeConfig`
+```js
+themeConfig: {
+  element: 'html',
+  defaultTheme: 'light',
+  dataAttribute: 'data-theme'
+},
+
+```
+
+|property|description|value|default|
+|:---|:----|:----|:----|
+|`element`| Which element you will place your theme switching data attribute on (defined in `dataAttribute`). If you use `data-theme` on your `html` element, set html. Ids can be used as  `#yourElementId`, classes as `#yourClass`| `selector`|`html` 
+|`defaultTheme`| Which theme is applied without having a theme selected?|`ThemeName`|First theme
+|`dataAttribute`| Which data attribute will you used to change theme?. MUST be prefixed with `data-`|`string`|`data-theme`
+
+</br>
+
 
 ## Extras {#extras}
 We have a couple other useful utilities baked into the config that we use frequently, enjoy:

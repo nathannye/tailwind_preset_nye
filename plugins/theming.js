@@ -16,12 +16,6 @@ const themePlugin = plugin(({ theme, addBase }) => {
   if (Object.values(colors).some(color => typeof color !== 'object')) return;
 
 
-
-  let index = 0
-
-
-
-
   const generateTheme = (themeName, colors, i) => {
     let vars = {}
     const base = {}
