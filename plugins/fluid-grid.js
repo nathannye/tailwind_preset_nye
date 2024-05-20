@@ -304,6 +304,7 @@ const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUt
   generateVariables(devices, addBase, addUtilities, gridSettings)
   generateGridUtilities(matchUtilities)
 
+
 })
 
 export default fluidGridPlugin
