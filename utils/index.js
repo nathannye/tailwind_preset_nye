@@ -5,7 +5,7 @@ export const toRem = (px) => {
 export const generateNumericScale = (start, end, step = 1, unit = '') => {
   let scale = {}
   for (let i = start; i <= end; i += step) {
-    scale[i] = `i${unit}`
+    scale[i] = `${i}${unit}`
   }
   return scale
 }
@@ -27,5 +27,5 @@ export const hexToRgb = (hex) => {
     b = parseInt(hex[5] + hex[6], 16);
   }
 
-  return `${r} ${g} ${b}`;
+  return `${r} ${g} ${b} `;
 }
