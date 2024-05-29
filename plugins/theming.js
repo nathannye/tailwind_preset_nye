@@ -54,10 +54,10 @@ const themePlugin = plugin(({ theme, addBase }) => {
   theme: {
     extend: {
       colors: {
-        // ...colorObj,
-        primary: 'rgb(var(--primary) / <alpha-value>)',
-        inverted: 'rgb(var(--inverted) / <alpha-value>)',
-        accent: 'rgb(var(--accent) / <alpha-value>)'
+        ...colorObj,
+        // primary: 'rgb(var(--primary) / <alpha-value>)',
+        // inverted: 'rgb(var(--inverted) / <alpha-value>)',
+        // accent: 'rgb(var(--accent) / <alpha-value>)'
       }
     }
   }
