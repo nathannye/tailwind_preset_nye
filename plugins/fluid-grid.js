@@ -229,7 +229,7 @@ const generateGridUtilities = (matchUtilities) => {
     if (cols > 1) {
       return `calc((var(--column) * ${cols}) + var(--gutter) * ${(cols - 1) + spread});`
     } else {
-      return `calc((var(--column) * 1)${spread ? ` + var(--gutter) + ${spread}` : ''});`
+      return `calc((var(--column) * 1)${spread ? ` + var(--gutter) * ${spread}` : ''});`
     }
   }
 
