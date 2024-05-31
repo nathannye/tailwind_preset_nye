@@ -24,12 +24,11 @@ const themePlugin = plugin(({ theme, addBase }) => {
 
     Object.entries(colors).forEach(([name, value]) => {
 
-      if (i === 0) {
+      if (isDefault) {
         colorObj[name] = `rgb(var(--${name}) / <alpha-value>)`
       }
       vars[`--${name}`] = hexToRgb(value)
     })
-
 
     if (isDefault) {
       addBase({

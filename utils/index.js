@@ -27,5 +27,5 @@ export const hexToRgb = (hex) => {
     b = parseInt(hex[5] + hex[6], 16);
   }
 
-  return `${r} ${g} ${b} `;
+  return `${r}, ${g}, ${b}`;
 }

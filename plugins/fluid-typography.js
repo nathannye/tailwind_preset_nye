@@ -30,15 +30,25 @@ const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
   const values = {}
   // get only keys from the fontSizes object
   Object.entries(fontSizes).map(([key, value]) => {
+    console.log(key, value)
     if (!value.size) return
     values[key] = value.size
   })
 
   matchUtilities(
     {
-      text: (value) => ({
-        ...font(fontSizes[value], settings)
-      }),
+      // text: (value) => {
+      //   console.log(value)
+      //   return {
+      //     ...font(fontSizes[value], settings)
+      //   },
+      // }
+      text: (value) => {
+        if (!fontSizes[value]) return
+        return {
+          ...font(fontSizes[value], settings)
+        }
+      }
     },
     { values }
   )
