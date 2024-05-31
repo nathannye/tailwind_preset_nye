@@ -228,7 +228,7 @@ const generateGridUtilities = (matchUtilities) => {
     if (cols > 1) {
       return `calc((var(--column) * ${cols}) + var(--gutter) * ${(cols - 1) + spread});`
     } else {
-      return 'calc(var(--column) * 1);'
+      return `calc((var(--column) * 1) + ${spread});`
     }
   }
 
@@ -292,6 +292,10 @@ const generateGridUtilities = (matchUtilities) => {
 
 
 const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUtilities }) {
+
+  const c = theme('colors')
+  console.log('colors after transform: ', c)
+
   const devices = { ..._DEFAULT_DEVICES, ...theme('devices') }
   const maxScalingWidth = theme('maxScalingWidth') || _DEFAULT_MAX_SCALING_WIDTH
 

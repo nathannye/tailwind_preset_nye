@@ -9,7 +9,7 @@ const themePlugin = plugin(({ theme, addBase }) => {
 
   const { element, dataAttribute, defaultTheme } = { ...DEFAULT_THEME_ATTRS, ...theme('themeConfig') }
 
-  const colors = theme('colors');
+  const colors = theme('themeColors');
 
 
   // if colors are normal strings, dont turn themes on
@@ -25,14 +25,14 @@ const themePlugin = plugin(({ theme, addBase }) => {
     Object.entries(colors).forEach(([name, value]) => {
 
       if (isDefault) {
-        colorObj[name] = `rgb(var(--${name}) / <alpha-value>)`
+        colorObj[name] = `rgb(var(--${name}))`
       }
       vars[`--${name}`] = hexToRgb(value)
     })
 
     if (isDefault) {
       addBase({
-        [element]: vars
+        ':root': vars
       })
     } else {
       addBase({
@@ -51,14 +51,7 @@ const themePlugin = plugin(({ theme, addBase }) => {
   })
 }, {
   theme: {
-    extend: {
-      colors: {
-        ...colorObj,
-        // primary: 'rgb(var(--primary) / <alpha-value>)',
-        // inverted: 'rgb(var(--inverted) / <alpha-value>)',
-        // accent: 'rgb(var(--accent) / <alpha-value>)'
-      }
-    }
+    colors: colorObj
   }
 })
 
