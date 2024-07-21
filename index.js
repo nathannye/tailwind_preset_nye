@@ -6,7 +6,6 @@ const { default: fluidTypographyPlugin } = require('./plugins/fluid-typography')
 const maxBreakpointsPlugin = require('./plugins/max-breakpoints')
 const additionalVariantsPlugin = require('./plugins/additional-variants')
 const spacing = require('./rules/spacing')
-// const themePlugin = require('./plugins/theming')
 
 module.exports = {
   theme: {

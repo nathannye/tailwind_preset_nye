@@ -69,7 +69,7 @@ const PROPERTIES = {
   'scroll-mx': ['scroll-margin-left', 'scroll-margin-right'],
   'scroll-py': ['scroll-padding-top', 'scroll-padding-bottom'],
   'scroll-my': ['scroll-margin-top', 'scroll-margin-bottom'],
-  square: ['width', 'height'],
+  size: ['width', 'height'],
   gap: ['column-gap', 'row-gap'],
   'gap-x': ['column-gap'],
   'gap-y': ['row-gap'],
@@ -86,7 +86,6 @@ const generateGridSvg = (device, gridSettings) => {
   const arr = Array.from({ length: columns }, (_, i) => i)
   const marginPercentage = ((margin) / s) * 100
   const gutterPercentage = ((gutter) / s) * 100
-
 
   // left margin
   lines += `<rect x='${marginPercentage}%' y='0' height='100%' fill='${color}' width='${width}' opacity='${opacity}' />`
@@ -194,7 +193,7 @@ const generateVariables = (devices, addBase, addUtilities, gridSettings) => {
             right: 0,
             bottom: 0,
             maxWidth: maxScalingWidth ? maxScalingWidth + 'px' : '100%',
-            width: '100%',
+            width: 'calc(100% - var(--scrollbar))',
             margin: '0 auto',
             height: '100lvh',
             content: '""',
@@ -295,7 +294,6 @@ const generateGridUtilities = (matchUtilities) => {
 const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUtilities }) {
 
   const c = theme('colors')
-  console.log('colors after transform: ', c)
 
   const devices = { ..._DEFAULT_DEVICES, ...theme('devices') }
   const maxScalingWidth = theme('maxScalingWidth') || _DEFAULT_MAX_SCALING_WIDTH
@@ -308,7 +306,6 @@ const fluidGridPlugin = plugin(function ({ addBase, theme, matchUtilities, addUt
 
   generateVariables(devices, addBase, addUtilities, gridSettings)
   generateGridUtilities(matchUtilities)
-
 
 })
 

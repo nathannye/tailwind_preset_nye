@@ -27,6 +27,7 @@ const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
   const fontSizes = theme('fontSize')
   const settings = { ..._DEFAULT_TYPOGRAPHY, ...theme('fluidTypography') }
 
+
   const values = {}
   // get only keys from the fontSizes object
   Object.entries(fontSizes).map(([key, value]) => {
@@ -36,12 +37,6 @@ const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
 
   matchUtilities(
     {
-      // text: (value) => {
-      //   console.log(value)
-      //   return {
-      //     ...font(fontSizes[value], settings)
-      //   },
-      // }
       text: (value) => {
         if (!fontSizes[value]) return
         return {
@@ -51,7 +46,6 @@ const fluidTypographyPlugin = plugin(function ({ theme, matchUtilities }) {
     },
     { values }
   )
-  // })
 })
 
 export default fluidTypographyPlugin
