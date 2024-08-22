@@ -171,7 +171,7 @@ const generateVariables = (devices, addBase, addUtilities, gridSettings) => {
 
     if (maxScalingWidth) {
       fontScaling[`@media (min-width: ${maxScalingWidth}px)`] = {
-        fontSize: '1rem'
+        fontSize: '62.5%'
       }
     }
 
