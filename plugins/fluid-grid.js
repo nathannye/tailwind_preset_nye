@@ -1,5 +1,5 @@
 
-const { _DEFAULT_DEVICES, _DEFAULT_OVERLAY } = require('../_defaults/_grid')
+const { _DEFAULT_DEVICES, _DEFAULT_OVERLAY, _DEFAULT_MAX_SCALING_WIDTH } = require('../_defaults/_grid')
 const plugin = require('tailwindcss/plugin')
 const { toRem } = require('../utils')
 
